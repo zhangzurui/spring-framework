@@ -64,6 +64,7 @@ public class RequestMappingHandlerMappingTests {
 	private final StaticWebApplicationContext wac = new StaticWebApplicationContext();
 
 	private final RequestMappingHandlerMapping handlerMapping = new RequestMappingHandlerMapping();
+
 	{
 		this.handlerMapping.setApplicationContext(wac);
 	}
@@ -133,10 +134,10 @@ public class RequestMappingHandlerMappingTests {
 				value -> "/${pattern}/bar".equals(value) ? "/foo/bar" : value
 		);
 
-		String[] patterns = new String[] { "/foo", "/${pattern}/bar" };
+		String[] patterns = new String[]{"/foo", "/${pattern}/bar"};
 		String[] result = this.handlerMapping.resolveEmbeddedValuesInPatterns(patterns);
 
-		assertThat(result).isEqualTo(new String[] { "/foo", "/foo/bar" });
+		assertThat(result).isEqualTo(new String[]{"/foo", "/foo/bar"});
 	}
 
 	@Test
@@ -234,7 +235,7 @@ public class RequestMappingHandlerMappingTests {
 	}
 
 	private RequestMappingInfo assertComposedAnnotationMapping(String methodName, String path,
-			RequestMethod requestMethod) throws Exception {
+															   RequestMethod requestMethod) throws Exception {
 
 		Class<?> clazz = ComposedAnnotationController.class;
 		Method method = ClassUtils.getMethod(clazz, methodName, (Class<?>[]) null);

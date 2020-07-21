@@ -51,8 +51,8 @@ public class NettyByteBufEncoder extends AbstractEncoder<ByteBuf> {
 
 	@Override
 	public Flux<DataBuffer> encode(Publisher<? extends ByteBuf> inputStream,
-			DataBufferFactory bufferFactory, ResolvableType elementType, @Nullable MimeType mimeType,
-			@Nullable Map<String, Object> hints) {
+								   DataBufferFactory bufferFactory, ResolvableType elementType, @Nullable MimeType mimeType,
+								   @Nullable Map<String, Object> hints) {
 
 		return Flux.from(inputStream).map(byteBuffer ->
 				encodeValue(byteBuffer, bufferFactory, elementType, mimeType, hints));
@@ -60,7 +60,7 @@ public class NettyByteBufEncoder extends AbstractEncoder<ByteBuf> {
 
 	@Override
 	public DataBuffer encodeValue(ByteBuf byteBuf, DataBufferFactory bufferFactory,
-			ResolvableType valueType, @Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
+								  ResolvableType valueType, @Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
 
 		if (logger.isDebugEnabled() && !Hints.isLoggingSuppressed(hints)) {
 			String logPrefix = Hints.getLogPrefix(hints);

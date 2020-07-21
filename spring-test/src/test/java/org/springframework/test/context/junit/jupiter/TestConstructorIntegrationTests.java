@@ -53,14 +53,14 @@ class TestConstructorIntegrationTests {
 	@Test
 	void autowireModeNotSetToAll() {
 		EngineTestKit.engine("junit-jupiter")
-			.selectors(selectClass(AutomaticallyAutowiredTestCase.class))
-			.execute()
-			.testEvents()
-			.assertStatistics(stats -> stats.started(1).succeeded(0).failed(1))
-			.assertThatEvents().haveExactly(1, event(test("test"),
+				.selectors(selectClass(AutomaticallyAutowiredTestCase.class))
+				.execute()
+				.testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(0).failed(1))
+				.assertThatEvents().haveExactly(1, event(test("test"),
 				finishedWithFailure(
-					instanceOf(ParameterResolutionException.class),
-					message(msg -> msg.matches(".+for parameter \\[java\\.lang\\.String .+\\] in constructor.+")))));
+						instanceOf(ParameterResolutionException.class),
+						message(msg -> msg.matches(".+for parameter \\[java\\.lang\\.String .+\\] in constructor.+")))));
 	}
 
 	@Test
@@ -68,20 +68,20 @@ class TestConstructorIntegrationTests {
 		setSpringProperty("all");
 
 		EngineTestKit.engine("junit-jupiter")
-			.selectors(selectClass(AutomaticallyAutowiredTestCase.class))
-			.execute()
-			.testEvents()
-			.assertStatistics(stats -> stats.started(1).succeeded(1).failed(0));
+				.selectors(selectClass(AutomaticallyAutowiredTestCase.class))
+				.execute()
+				.testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(1).failed(0));
 	}
 
 	@Test
 	void autowireModeSetToAllViaJUnitPlatformConfigurationParameter() {
 		EngineTestKit.engine("junit-jupiter")
-			.selectors(selectClass(AutomaticallyAutowiredTestCase.class))
-			.configurationParameter(TEST_CONSTRUCTOR_AUTOWIRE_MODE_PROPERTY_NAME, "all")
-			.execute()
-			.testEvents()
-			.assertStatistics(stats -> stats.started(1).succeeded(1).failed(0));
+				.selectors(selectClass(AutomaticallyAutowiredTestCase.class))
+				.configurationParameter(TEST_CONSTRUCTOR_AUTOWIRE_MODE_PROPERTY_NAME, "all")
+				.execute()
+				.testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(1).failed(0));
 	}
 
 

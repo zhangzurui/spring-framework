@@ -344,8 +344,8 @@ public class UriTemplateServletAnnotationControllerHandlerMethodTests extends Ab
 	public static class SimpleUriTemplateController {
 
 		@RequestMapping("/{root}")
-		public void handle(@PathVariable("root") int root, @MatrixVariable(required=false, defaultValue="7") int q,
-				Writer writer) throws IOException {
+		public void handle(@PathVariable("root") int root, @MatrixVariable(required = false, defaultValue = "7") int q,
+						   Writer writer) throws IOException {
 
 			assertThat(root).as("Invalid path variable value").isEqualTo(42);
 			writer.write("test-" + root + "-" + q);
@@ -358,11 +358,11 @@ public class UriTemplateServletAnnotationControllerHandlerMethodTests extends Ab
 
 		@RequestMapping("/hotels/{hotel}/bookings/{booking}-{other}")
 		public void handle(@PathVariable("hotel") String hotel,
-				@PathVariable int booking,
-				@PathVariable String other,
-				@MatrixVariable(name = "q", pathVar = "hotel") int qHotel,
-				@MatrixVariable(name = "q", pathVar = "other") int qOther,
-				Writer writer) throws IOException {
+						   @PathVariable int booking,
+						   @PathVariable String other,
+						   @MatrixVariable(name = "q", pathVar = "hotel") int qHotel,
+						   @MatrixVariable(name = "q", pathVar = "other") int qOther,
+						   Writer writer) throws IOException {
 			assertThat(hotel).as("Invalid path variable value").isEqualTo("42");
 			assertThat(booking).as("Invalid path variable value").isEqualTo(21);
 			writer.write("test-" + hotel + "-q" + qHotel + "-" + booking + "-" + other + "-q" + qOther);
@@ -375,7 +375,7 @@ public class UriTemplateServletAnnotationControllerHandlerMethodTests extends Ab
 
 		@RequestMapping("/hotels/{hotel}/bookings/{booking}-{other}")
 		public void handle(@PathVariable("hotel") String hotel, @PathVariable int booking,
-				@PathVariable String other, @MatrixVariable MultiValueMap<String, String> params) {
+						   @PathVariable String other, @MatrixVariable MultiValueMap<String, String> params) {
 
 			assertThat(hotel).as("Invalid path variable value").isEqualTo("42");
 			assertThat(booking).as("Invalid path variable value").isEqualTo(21);
@@ -478,7 +478,7 @@ public class UriTemplateServletAnnotationControllerHandlerMethodTests extends Ab
 
 		@RequestMapping("/{root:\\d+}{params}")
 		public void handle(@PathVariable("root") int root, @PathVariable("params") String paramString,
-				@MatrixVariable List<Integer> q, Writer writer) throws IOException {
+						   @MatrixVariable List<Integer> q, Writer writer) throws IOException {
 
 			assertThat(root).as("Invalid path variable value").isEqualTo(42);
 			writer.write("test-" + root + "-" + paramString + "-" + q);
@@ -490,7 +490,7 @@ public class UriTemplateServletAnnotationControllerHandlerMethodTests extends Ab
 
 		@RequestMapping("/lat/{latitude}/long/{longitude}")
 		public void testLatLong(@PathVariable Double latitude, @PathVariable Double longitude, Writer writer)
-			throws IOException {
+				throws IOException {
 			writer.write("latitude-" + latitude + "-longitude-" + longitude);
 		}
 	}
@@ -592,12 +592,12 @@ public class UriTemplateServletAnnotationControllerHandlerMethodTests extends Ab
 	@RequestMapping("/test")
 	public static class VariableNamesController {
 
-		@RequestMapping(value = "/{foo}", method=RequestMethod.GET)
+		@RequestMapping(value = "/{foo}", method = RequestMethod.GET)
 		public void foo(@PathVariable String foo, Writer writer) throws IOException {
 			writer.write("foo-" + foo);
 		}
 
-		@RequestMapping(value = "/{bar}", method=RequestMethod.DELETE)
+		@RequestMapping(value = "/{bar}", method = RequestMethod.DELETE)
 		public void bar(@PathVariable String bar, Writer writer) throws IOException {
 			writer.write("bar-" + bar);
 		}
@@ -636,14 +636,15 @@ public class UriTemplateServletAnnotationControllerHandlerMethodTests extends Ab
 
 		@Override
 		public View resolveViewName(final String viewName, Locale locale) throws Exception {
-			return new AbstractView () {
+			return new AbstractView() {
 				@Override
 				public String getContentType() {
 					return null;
 				}
+
 				@Override
 				protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
-						HttpServletResponse response) throws Exception {
+													   HttpServletResponse response) throws Exception {
 					for (String key : attrsToValidate.keySet()) {
 						assertThat(model.containsKey(key)).as("Model should contain attribute named " + key).isTrue();
 						assertThat(model.get(key)).isEqualTo(attrsToValidate.get(key));

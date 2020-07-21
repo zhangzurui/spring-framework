@@ -50,7 +50,7 @@ public class NettyByteBufDecoder extends AbstractDataBufferDecoder<ByteBuf> {
 
 	@Override
 	public ByteBuf decode(DataBuffer dataBuffer, ResolvableType elementType,
-			@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
+						  @Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
 
 		if (logger.isDebugEnabled()) {
 			logger.debug(Hints.getLogPrefix(hints) + "Read " + dataBuffer.readableByteCount() + " bytes");
